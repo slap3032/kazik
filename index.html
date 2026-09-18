@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рулетка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Баланс -->
+  <div class="balance-box">
+    <span class="balance-icon">💰</span>
+    <span class="balance-num" id="balance">1000</span>
+  </div>
+
+  <!-- Тема -->
+  <button class="theme-btn" id="themeBtn">🌙</button>
+
+  <!-- Главная -->
+  <div class="home" id="home">
+    <h1 class="home-title">Добро пожаловать на наш сайт</h1>
+    <p class="home-sub">Спасибо что используете нас</p>
+    <button class="play-btn" id="playBtn">Начать играть</button>
+    <button class="promo-btn" id="promoBtn">🎁 Промокоды</button>
+  </div>
+
+  <!-- Рулетка -->
+  <div class="roulette-box" id="rouletteBox">
+    <button class="back-btn" id="backBtn">← Меню</button>
+    <div class="roulette-window">
+      <div class="roulette-line" id="rouletteLine"></div>
+    </div>
+    <div class="roulette-result" id="rouletteResult"></div>
+    <div class="roulette-actions">
+      <button class="replay-btn" id="replayBtn" style="display:none;">🔄 Перекрутить</button>
+    </div>
+  </div>
+
+  <!-- Уведомление -->
+  <div class="notification" id="notification">
+    <span class="notif-icon" id="notifIcon">🪙</span>
+    <span class="notif-text" id="notifText">+100</span>
+  </div>
+
+  <!-- 777 -->
+  <div class="jackpot-overlay" id="jackpot">
+    <div class="jackpot-content">
+      <div class="jackpot-title">🎰 777 🎰</div>
+      <div class="jackpot-sub">СТРАЙК!</div>
+      <div class="jackpot-prize">+1000 💰</div>
+      <div class="jackpot-stickers">
+        <span>💎</span><span>🔥</span><span>💰</span><span>⭐</span><span>👑</span>
+        <span>🎯</span><span>🚀</span><span>💎</span><span>🔥</span><span>💰</span>
+        <span>⭐</span><span>👑</span><span>🎯</span><span>🚀</span><span>💎</span>
+      </div>
+      <button class="jackpot-btn" id="jackpotBtn">Забрать</button>
+    </div>
+  </div>
+
+  <!-- Промо -->
+  <div class="promo-overlay" id="promoOverlay">
+    <div class="promo-content">
+      <h2 class="promo-title">🎁 Промокод</h2>
+      <input type="text" class="promo-input" id="promoInput" placeholder="Введите промокод...">
+      <button class="promo-submit" id="promoSubmit">Активировать</button>
+      <button class="promo-close" id="promoClose">Закрыть</button>
+      <p class="promo-hint">Попробуй: <span class="promo-code">FREE</span></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
