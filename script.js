@@ -122,22 +122,20 @@ document.addEventListener("DOMContentLoaded", () => {
     backBtn.disabled = true;
 
     const track = buildTrack();
-    const winVal = values[Math.floor(Math.random() * values.length)];
-
     const items = track.querySelectorAll(".roulette-item");
-    const wins = [];
-    items.forEach((el, i) => {
-      if (parseInt(el.querySelector("span:last-child").textContent) === winVal) {
-        wins.push(i);
-      }
-    });
 
-    const near = wins.filter(i => i >= WIN - 4 && i <= WIN + 4);
-    const idx = near.length > 0 ? near[Math.floor(Math.random() * near.length)] : WIN;
+    // Выбираем случайный индекс победителя (ближе к концу)
+    const winIdx = Math.floor(Math.random() * 20) + 55; // 55-74
+
+    // Считываем значение с этого элемента — ТОЧНОЕ значение
+    const winEl = items[winIdx];
+    const winText = winEl.querySelector("span:last-child").textContent;
+    const winVal = parseInt(winText);
 
     const winW = rouletteBox.querySelector(".roulette-window").offsetWidth;
-    const offset = idx * ITEM_W - winW / 2 + ITEM_W / 2;
-    const jitter = Math.floor(Math.random() * 30) - 15;
+
+    // Точное смещение — элемент по центру окна, БЕЗ jitter
+    const offset = winIdx * ITEM_W - winW / 2 + ITEM_W / 2;
 
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
@@ -145,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         track.style.transition = "transform 4s cubic-bezier(0.12, 0.8, 0.2, 1)";
-        track.style.transform = `translateX(-${offset + jitter}px)`;
+        track.style.transform = `translateX(-${offset}px)`;
       });
     });
 
@@ -155,19 +153,22 @@ document.addEventListener("DOMContentLoaded", () => {
       backBtn.disabled = false;
       replayBtn.style.display = "inline-block";
 
+      // Приз по значению элемента — ТОЧНО
       const prize = getPrize(winVal);
+      const icon = getIcon(winVal);
 
       if (winVal === 100) {
         setBal(balance + prize);
         showNotif("🎰", `+${prize} 💰`);
+        rouletteResult.textContent = `+${prize} ${icon}`;
         jackpot.classList.add("active");
       } else if (winVal === 1000) {
         setBal(balance + prize);
         showNotif("💎", `+${prize} 💰`);
+        rouletteResult.textContent = `+${prize} ${icon}`;
         mega.classList.add("active");
       } else {
         setBal(balance + prize);
-        const icon = getIcon(winVal);
         rouletteResult.textContent = `+${prize} ${icon}`;
         showNotif(icon, `+${prize}`);
       }
