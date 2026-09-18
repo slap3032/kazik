@@ -47,8 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const rouletteResult = document.getElementById("rouletteResult");
   const replayBtn = document.getElementById("replayBtn");
   const backBtn = document.getElementById("backBtn");
-  const jackpot = document.getElementById("jackpot");
-  const jackpotBtn = document.getElementById("jackpotBtn");
   const mega = document.getElementById("mega");
   const megaBtn = document.getElementById("megaBtn");
   const notification = document.getElementById("notification");
@@ -63,8 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const values = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 450, 500, 1000];
   const ITEM_W = 90;
   const COUNT = 80;
-  const WIN = 65;
-
   let spinning = false;
   let usedPromos = store.get("roulette_promos", []);
 
@@ -76,8 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getPrize(val) {
-    if (val === 100) return 1000;
-    if (val === 1000) return 2000;
     return val;
   }
 
@@ -124,27 +118,30 @@ document.addEventListener("DOMContentLoaded", () => {
     const track = buildTrack();
     const items = track.querySelectorAll(".roulette-item");
 
-    // Выбираем случайный индекс победителя (ближе к концу)
-    const winIdx = Math.floor(Math.random() * 20) + 55; // 55-74
+    // Выбираем индекс победителя
+    const winIdx = Math.floor(Math.random() * 20) + 55;
 
-    // Считываем значение с этого элемента — ТОЧНОЕ значение
-    const winEl = items[winIdx];
-    const winText = winEl.querySelector("span:last-child").textContent;
+    // Считываем значение С ЭЛЕМЕНТА — ТОЧНО
+    const winText = items[winIdx].querySelector("span:last-child").textContent;
     const winVal = parseInt(winText);
 
+    // Ширина окна рулетки
     const winW = rouletteBox.querySelector(".roulette-window").offsetWidth;
 
-    // Точное смещение — элемент по центру окна, БЕЗ jitter
-    const offset = winIdx * ITEM_W - winW / 2 + ITEM_W / 2;
+    // Центрируем выбранный элемент
+    const itemCenter = winIdx * ITEM_W + ITEM_W / 2;
+    const winCenter = winW / 2;
+    const offset = itemCenter - winCenter;
 
     track.style.transition = "none";
     track.style.transform = "translateX(0)";
 
+    // Форсируем перерисовку
+    track.offsetHeight;
+
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        track.style.transition = "transform 4s cubic-bezier(0.12, 0.8, 0.2, 1)";
-        track.style.transform = `translateX(-${offset}px)`;
-      });
+      track.style.transition = "transform 4s cubic-bezier(0.12, 0.8, 0.2, 1)";
+      track.style.transform = `translateX(-${offset}px)`;
     });
 
     setTimeout(() => {
@@ -153,16 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
       backBtn.disabled = false;
       replayBtn.style.display = "inline-block";
 
-      // Приз по значению элемента — ТОЧНО
       const prize = getPrize(winVal);
       const icon = getIcon(winVal);
 
-      if (winVal === 100) {
-        setBal(balance + prize);
-        showNotif("🎰", `+${prize} 💰`);
-        rouletteResult.textContent = `+${prize} ${icon}`;
-        jackpot.classList.add("active");
-      } else if (winVal === 1000) {
+      if (winVal === 1000) {
         setBal(balance + prize);
         showNotif("💎", `+${prize} 💰`);
         rouletteResult.textContent = `+${prize} ${icon}`;
@@ -189,10 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
   backBtn.addEventListener("click", () => {
     rouletteBox.classList.remove("active");
     home.style.display = "flex";
-  });
-
-  jackpotBtn.addEventListener("click", () => {
-    jackpot.classList.remove("active");
   });
 
   megaBtn.addEventListener("click", () => {
