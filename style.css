@@ -369,6 +369,86 @@ body.light .play-btn:hover {
   background: rgba(255,215,0,0.1);
 }
 
+/* ===== MEGA 1000 ===== */
+.mega-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.mega-overlay.active { display: flex; }
+
+.mega-content {
+  text-align: center;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mega-title {
+  font-size: clamp(2.5rem, 10vw, 6rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #00e5ff, #7c4dff, #e040fb, #00e5ff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1.2s ease infinite;
+  filter: drop-shadow(0 0 40px rgba(0,229,255,0.7));
+}
+
+.mega-sub {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 900;
+  color: #e040fb;
+  margin-top: 4px;
+  animation: pulse 0.4s ease infinite alternate;
+}
+
+.mega-prize {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 900;
+  color: #00e5ff;
+  margin-top: 10px;
+  text-shadow: 0 0 30px rgba(0,229,255,0.6);
+}
+
+.mega-stickers {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: 350px;
+}
+
+.mega-stickers span {
+  font-size: 2rem;
+  animation: bounce 0.6s ease infinite alternate;
+}
+
+.mega-stickers span:nth-child(odd) { animation-delay: 0.1s; }
+.mega-stickers span:nth-child(3n) { animation-delay: 0.25s; }
+
+.mega-btn {
+  margin-top: 28px;
+  padding: 14px 40px;
+  border: 2px solid #00e5ff;
+  border-radius: 50px;
+  background: transparent;
+  color: #00e5ff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.mega-btn:hover {
+  transform: scale(1.08);
+  background: rgba(0,229,255,0.1);
+}
+
 /* ===== ПРОМО ОВЕРЛЕЙ ===== */
 .promo-overlay {
   position: fixed;

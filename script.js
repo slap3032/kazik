@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const backBtn = document.getElementById("backBtn");
   const jackpot = document.getElementById("jackpot");
   const jackpotBtn = document.getElementById("jackpotBtn");
+  const mega = document.getElementById("mega");
+  const megaBtn = document.getElementById("megaBtn");
   const notification = document.getElementById("notification");
   const notifIcon = document.getElementById("notifIcon");
   const notifText = document.getElementById("notifText");
@@ -75,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getPrize(val) {
     if (val === 100) return 1000;
+    if (val === 1000) return 2000;
     return val;
   }
 
@@ -158,6 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
         setBal(balance + prize);
         showNotif("🎰", `+${prize} 💰`);
         jackpot.classList.add("active");
+      } else if (winVal === 1000) {
+        setBal(balance + prize);
+        showNotif("💎", `+${prize} 💰`);
+        mega.classList.add("active");
       } else {
         setBal(balance + prize);
         const icon = getIcon(winVal);
@@ -185,6 +192,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   jackpotBtn.addEventListener("click", () => {
     jackpot.classList.remove("active");
+  });
+
+  megaBtn.addEventListener("click", () => {
+    mega.classList.remove("active");
   });
 
   // ===== ПРОМОКОДЫ =====
